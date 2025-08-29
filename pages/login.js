@@ -58,7 +58,12 @@ export default function Login() {
 
     try {
       setSubmitting(true);
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/login`, { email, password });
+      let baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+      if (typeof window !== 'undefined' && window.location?.protocol === 'https:' && baseUrl.startsWith('http://')) {
+        baseUrl = baseUrl.replace(/^http:\/\//, 'https://');
+      }
+      const url = baseUrl ? `${baseUrl}/login` : '/api/login';
+      const res = await axios.post(url, { email, password });
       localStorage.setItem('token', res.data.token);
       router.push('/usermanagement');
     } catch (err) {
@@ -127,18 +132,19 @@ export default function Login() {
               label="Email address"
               name="email"
               autoComplete="email"
-              autoFocus
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               onBlur={() => setTouched((t) => ({ ...t, email: true }))}
               error={!!emailError}
               helperText={emailError}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <EmailIcon fontSize="small" color="action" />
-                  </InputAdornment>
-                )
+              slotProps={{
+                input: {
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <EmailIcon fontSize="small" color="action" />
+                    </InputAdornment>
+                  )
+                }
               }}
             />
 
@@ -147,34 +153,36 @@ export default function Login() {
               required
               fullWidth
               name="password"
+              id="password"
               label="Password"
               type={showPassword ? 'text' : 'password'}
-              id="password"
               autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               onBlur={() => setTouched((t) => ({ ...t, password: true }))}
               error={!!passwordError}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <LockIcon fontSize="small" color="action" />
-                  </InputAdornment>
-                ),
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() => setShowPassword((v) => !v)}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                )
+              helperText={passwordError}
+              slotProps={{
+                input: {
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <LockIcon fontSize="small" color="action" />
+                    </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={() => setShowPassword((v) => !v)}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }
               }}
             />
-
             <Button
               type="submit"
               fullWidth

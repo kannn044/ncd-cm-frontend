@@ -12,8 +12,7 @@ import {
   Avatar,
   InputAdornment,
   IconButton,
-  CircularProgress,
-  Link
+  CircularProgress
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import EmailIcon from '@mui/icons-material/Email';
@@ -142,6 +141,7 @@ export default function Login() {
                 )
               }}
             />
+
             <TextField
               margin="normal"
               required
@@ -155,27 +155,24 @@ export default function Login() {
               onChange={(e) => setPassword(e.target.value)}
               onBlur={() => setTouched((t) => ({ ...t, password: true }))}
               error={!!passwordError}
-              helperText={passwordError}
-              InputProps={
-                {
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <LockIcon fontSize="small" color="action" />
-                    </InputAdornment>
-                  ),
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={() => setShowPassword((v) => !v)}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  )
-                }
-              }
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <LockIcon fontSize="small" color="action" />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => setShowPassword((v) => !v)}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
             />
 
             <Button

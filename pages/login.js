@@ -44,7 +44,7 @@ export default function Login() {
   const passwordError = useMemo(() => {
     if (!touched.password) return '';
     if (!password) return 'Password is required';
-    if (password.length < 6) return 'Minimum 6 characters';
+    // if (password.length < 6) return 'Minimum 6 characters';
     return '';
   }, [password, touched.password]);
 

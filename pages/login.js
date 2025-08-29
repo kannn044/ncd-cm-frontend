@@ -107,10 +107,10 @@ export default function Login() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5" sx={{ fontWeight: 600 }}>
-            Welcome back
+            CMU NCD
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5, mb: 2 }}>
-            Sign in to continue to your dashboard
+            UserManagement System
           </Typography>
 
           {error && (
@@ -210,12 +210,12 @@ export default function Login() {
                 alignItems: 'center'
               }}
             >
-              <Link href="#" underline="hover" variant="body2">
+              {/* <Link href="#" underline="hover" variant="body2">
                 Forgot password?
               </Link>
               <Link href="#" underline="hover" variant="body2">
                 Create an account
-              </Link>
+              </Link> */}
             </Box>
           </Box>
         </Box>

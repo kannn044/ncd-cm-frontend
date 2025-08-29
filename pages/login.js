@@ -12,7 +12,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3011/api/login', { email, password });
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/login`, { email, password });
       localStorage.setItem('token', res.data.token);
       router.push('/usermanagement');
     } catch (err) {

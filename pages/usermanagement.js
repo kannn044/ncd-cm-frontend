@@ -332,7 +332,7 @@ function UserManagement() {
       if (!result.isConfirmed) return;
       try {
         const token = localStorage.getItem('token');
-        await axios.post('http://localhost:3011/api/hospitals', newHosp, {
+                await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/hospitals`, newHosp, {
           headers: { Authorization: `Bearer ${token}` },
         });
         Swal.fire('Created!', 'Hospital has been added.', 'success');

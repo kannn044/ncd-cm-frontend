@@ -121,7 +121,7 @@ function UserManagement() {
       const s = String(debouncedSearchTerm || '').trim();
       if (s) params.search = s;
 
-      const res = await axios.get('http://localhost:3011/api/cm-users', {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/cm-users`, {
         headers: { Authorization: `Bearer ${token}` },
         params,
       });
@@ -148,7 +148,7 @@ function UserManagement() {
       const s = String(debouncedSearchHosp || '').trim();
       if (s) params.search = s;
 
-      const res = await axios.get('http://localhost:3011/api/hospitals', {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/hospitals`, {
         headers: { Authorization: `Bearer ${token}` },
         params,
       });
@@ -230,7 +230,7 @@ function UserManagement() {
       if (result.isConfirmed) {
         try {
           const token = localStorage.getItem('token');
-          await axios.put(`http://localhost:3011/api/cm-users/${editedUser.ID}`, editedUser, {
+          await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/cm-users/${editedUser.ID}`, editedUser, {
             headers: { Authorization: `Bearer ${token}` },
           });
           Swal.fire('Saved!', 'User has been updated.', 'success');
@@ -255,7 +255,7 @@ function UserManagement() {
       if (!result.isConfirmed) return;
       try {
         const token = localStorage.getItem('token');
-        await axios.post('http://localhost:3011/api/cm-users', newUser, {
+        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/cm-users`, newUser, {
           headers: { Authorization: `Bearer ${token}` },
         });
         Swal.fire('Created!', 'User has been added.', 'success');
@@ -307,7 +307,7 @@ function UserManagement() {
       try {
         const token = localStorage.getItem('token');
         await axios.put(
-          `http://localhost:3011/api/hospitals/${edited.HOSPCODE}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/hospitals/${edited.HOSPCODE}`,
           { NAME: edited.NAME, HEADQUARTER: edited.HOSPCODE }, // HEADQUARTER same as HOSPCODE
           { headers: { Authorization: `Bearer ${token}` } }
         );
